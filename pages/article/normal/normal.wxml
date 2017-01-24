@@ -1,0 +1,200 @@
+<import src="../../../common/tpl/warn.wxml"/>
+<import src="../../../common/tpl/comment.wxml"/>
+
+<template is="article-warn" data="{{showType: showType}}" />
+<view class="container" wx:if="{{showType == 1}}">
+  <view class="art-container">
+    <view class="title">{{data.title}}</view>
+    <view class="media-card" wx:if="{{data.card}}">
+      <navigator class="mc-header" url="/pages/article/media/media?chlid={{data.card.chlid}}" open-type="redirect" bindtap="mediaTap" data-chlid="{{data.card.chlid}}">
+        <image src="{{data.card.icon}}" mode="aspectFill"></image>
+      </navigator>
+        <navigator class="mc-name" url="/pages/article/media/media?chlid={{data.card.chlid}}" open-type="redirect" bindtap="mediaTap" data-chlid="{{data.card.chlid}}">{{data.card.chlname}}</navigator>
+          <view class="mc-des">
+            <text>{{data.timestamp}}</text>
+            <text hidden="{{data.comments == 0}}"> {{comment_count ? comment_count : data.comments}}评论</text>
+          </view>
+    </view>
+    <view class="src" wx:else>
+      <text>{{data.chlname}}</text>
+      <text>{{data.timestamp}}</text>
+      <text hidden="{{data.comments == 0}}">{{comment_count ? comment_count : data.comments}}评</text>
+    </view>
+    <view class="summary" wx:if="{{data.intro}}">
+      <text class="ibtn">{{data.intro_name}}</text>{{data.intro}}
+    </view>
+
+    <!--正文-->
+    <view class="content">
+      <block wx:for="{{data.content}}">
+
+        <!--文本内容-->
+        <view wx:if="{{item.type == 'cnt_article'}}" class="text">{{item.desc}}</view>
+
+        <!--文本内容结束-->
+
+        <!--图片内容-->
+        <block wx:elif="{{item.type == 'img_url'}}">
+          <view class="img-box" style="height:{{item.img_show_height}}rpx">
+
+            <!--图片-->
+            <block wx:if="{{item.itype == 1}}">
+              <image wx:if="{{network == 'wifi' || imglist[item.id]['clicked']}}" class="img gif-org" id="{{item.id}}" src="{{item.img_url_gif}}" mode="aspectFill" bindload="gifLoad"></image>
+
+              <!--wifi下不用下面的节点了-->
+              <block wx:if="{{network != 'wifi'}}">
+                <image class="img gif-hold" id="{{item.id}}" src="{{item.img_url}}" mode="aspectFill" bindtap="gifClick" hidden="{{imglist[item.id]['clicked'] && !imglist[item.id]['loading']}}"></image>
+                <view class="gif-bottom" hidden="{{imglist[item.id]['clicked'] && !imglist[item.id]['loading']}}">
+                  <view class="gif-text">点击播放</view>
+                  <view class="gif-size">GIF/{{item.size}}</view>
+                </view>
+              </block>
+            </block>
+            <image wx:else class="img" id="{{item.id}}" src="{{item.img_url}}" mode="aspectFill" style="height:{{item.img_show_height}}rpx" bindtap="imgTap"></image>
+          </view>
+
+          <!--图注-->
+          <view class="img-desc" wx:if="{{!!item.desc}}">{{item.desc}}</view>
+
+        </block>
+
+        <!--图片内容结束-->
+
+        <!--视频内容-->
+        <block wx:elif="{{item.type == 'video'}}">
+          <view class="video-box">
+            <video class="video" id="{{item.vid}}" src="{{videos[item.vid]['src']}}" wx:if="{{videos[item.vid]['loading'] == 'ok'}}" autoplay bindended="__onTvpEnded" bindplay="__onTvpPlay" bindpause="__onTvpPause" bindended="__onTvpEnded" binderror="__onTvpError"
+    bindtimeupdate="__onTvpTimeupdate"></video>
+            <image class="video_poster" src="{{item.img}}" mode="aspectFill" hidden="{{!!videos[item.vid]['playing']}}"></image>
+            <view class="video_play_btn{{videos[item.vid]['loading'] == 'loading' ? ' loading' : ''}}" bindtap="playBtnTap" data-vid="{{item.vid}}" hidden="{{!!videos[item.vid]['playing']}}"></view>
+          </view>
+        </block>
+
+        <!--视频内容结束-->
+      </block>
+    </view>
+
+    <!--结语-->
+    <view class="summary" wx:if="{{data.remark}}">{{data.remark}}</view>
+
+    <!--结语结束-->
+  </view>
+
+  <!--相关-->
+  <view class="relate-box" wx:if="{{showType == 1}}" hidden="{{relateNew.length == 0}}">
+    <view class="split-line"></view>
+    <view class="rl-top-title"><view class="line"></view><text>相关推荐</text></view>
+    <block wx:for="{{relateNew}}">
+
+      <!--无图模式-->
+      <block wx:if="{{item.picShowType == 1}}">
+        <view class="rl-line" wx:if="{{index != 0}}"></view>
+        <navigator class="relate-item no-pic" url="{{item.url}}" hover-class="hover" hover-stay-time="100" hover-start-time="0" open-type="redirect" bindtap='relTap' data-newsid="{{item.id}}">
+          <view class="rl-title">{{item.title}}</view>
+          <view class="rl-src">{{item.chlname}}</view>
+        </navigator>
+        
+      </block>
+
+      <!--无图模式结束-->
+
+      <!--小图模式-->
+      <block wx:elif="{{item.picShowType == 0}}">
+        <view class="rl-line" wx:if="{{index != 0}}"></view>
+        <navigator class="relate-item simple-pic" url="{{item.url}}" hover-class="hover" hover-stay-time="100" hover-start-time="0" open-type="redirect" bindtap='relTap' data-newsid="{{item.id}}">
+          <view class="rl-simple-text">
+            <view class="rl-title">{{item.title}}</view>
+            <view class="rl-src">{{item.chlname}}</view>
+          </view>
+          <view class="rl-simple-wrap">
+            <image class="rl-simple-img" src="{{item.imgs[0]}}" mode="aspectFill"></image>
+          </view>
+        </navigator>
+      </block>
+
+      <!--小图模式结束-->
+
+      <!--组图模式-->
+      <block wx:elif="{{item.picShowType == 2}}">
+        <view class="rl-line" wx:if="{{index != 0}}"></view>
+        <navigator class="relate-item group-pic" url="{{item.url}}" hover-class="hover" hover-stay-time="100" hover-start-time="0" open-type="redirect" bindtap='relTap' data-newsid="{{item.id}}">
+          <view class="rl-title">{{item.title}}</view>
+          <view class="rl-group-box">
+            <view class="rl-group-wrap">
+              <image class="rl-group-img" src="{{item.imgs[0]}}" mode="aspectFill"></image>
+            </view>
+            <view class="rl-group-wrap">
+              <image class="rl-group-img" src="{{item.imgs[1]}}" mode="aspectFill"></image>
+            </view>
+            <view class="rl-group-wrap">
+              <image class="rl-group-img" src="{{item.imgs[2]}}" mode="aspectFill"></image>
+            </view>
+          </view>
+          <view class="rl-src">{{item.chlname}}</view>
+        </navigator>
+      </block>
+
+      <!--组图模式结束-->
+    </block>
+  </view>
+
+  <!--相关结束-->
+
+  <!--评论开始-->
+
+  <!--精选评论-->
+  <view class="comment-box comment-selected" wx:if="{{comment_selected && comment_selected.length > 0}}">
+    <view class="split-line"></view>
+    <view class="comment-top-title"><view class="line"></view><text>精选评论</text></view>
+    <!--<view class="comment-line"></view>-->
+    <block wx:for="{{comment_selected}}">
+      <template is="comment_item" data="{{...item}}" />
+    </block>
+  </view>
+
+  <!--精选评论结束-->
+
+  <!--热门评论-->
+  <view class="comment-box comment-hot" wx:if="{{comment_hot && comment_hot.length > 0}}">
+    <view class="split-line"></view>
+    <view class="comment-top-title"><view class="line"></view><text>热门评论</text></view>
+    <!--<view class="comment-line"></view>-->
+    <block wx:for="{{comment_hot}}">
+      <template is="comment_item" data="{{...item}}" />
+    </block>
+  </view>
+
+  <!--热门评论结束-->
+
+  <!--最新评论-->
+  <view class="comment-box comment-new" wx:if="{{comment_new && comment_new.length > 0}}">
+    <view class="split-line"></view>
+    <view class="comment-top-title"><view class="line"></view><text>最新评论</text></view>
+    <!--<view class="comment-line"></view>-->
+    <block wx:if="{{commentState == 1}}">
+      <view class="no-comment">
+        <!--<image src="http://mat1.gtimg.com/www/images/newsapp/wxapp/kuaibao/mascot_pinglun.png" mode="aspectFill"></image>
+        <view class="comment-ext-line1">来都来了，说几句吧！</view>-->
+        <image src="http://mat1.gtimg.com/www/images/newsapp/wxapp/kuaibao/mascot_kong.png" mode="aspectFill"></image>
+        <view class="comment-ext-line2">暂无评论</view>
+      </view>
+    </block>
+    <block wx:elif="{{commentState == 2}}">
+      <view class="forbidden-comment">
+        <image src="http://mat1.gtimg.com/www/images/newsapp/wxapp/kuaibao/mascot_jinyan.png" mode="aspectFill"></image>
+        <view class="comment-ext-line1">评论被禁止</view>
+        <view class="comment-ext-line2">本新闻一调制静音模式</view>
+      </view>
+    </block>
+    <block wx:elif="{{commentState === 0}}">
+      <block wx:for="{{comment_new}}">
+        <template is="comment_item" data="{{...item}}" />
+      </block>
+      <view class="list-bottom" wx:if="{{lastReplyId != false && !reachBottom}}">上拉加载更多</view>
+      <view class="list-bottom loading" wx:elif="{{lastReplyId != false}}">正在加载</view>
+      <view class="list-bottom" wx:else>已显示全部内容</view>
+    </block>
+  </view>
+
+  <!--最新评论结束-->
+</view>

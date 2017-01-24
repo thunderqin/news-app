@@ -1,0 +1,36 @@
+@import "../../../common/css/article.wxss";
+
+.top-pic{
+    height: 150rpx;
+    width: 100%;
+    display: block;
+}
+.news-sub-box{
+    border-top: 18rpx solid #eee;
+}
+.news-sub-box.no-border{
+    border-top: none;
+}
+.news-sub-title{
+    margin: 30rpx 0 10rpx 30rpx;
+    color: #111;
+    height: 30rpx;
+    line-height: 30rpx;
+    font-size: 30rpx;
+    font-weight: bold;
+}
+
+.top-intro {
+  position: relative;
+  padding: 30rpx;
+  color: #686868;
+  text-justify: inter-ideograph;
+  font-size: 34rpx;
+  line-height: 50rpx;
+}
+
+
+.top-intro .ibtn {
+  color: #1479d7;
+  margin-right: 20rpx;
+}

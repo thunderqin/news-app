@@ -1,0 +1,139 @@
+<import src="../../../common/tpl/warn.wxml"/>
+
+<template is="article-warn" data="{{showType: showType}}" />
+<view class="s-container" wx:if="{{showType == 1}}">
+  <scroll-view class="scroll-con" scroll-y="true" bindscroll="_onScroll" bindscrolltolower="_onScrollToBottom" lower-threshold="40">
+    <view class="header-box">
+      <view class="header-img-wrap">
+        <image class="header-img" src="{{mediaInfo.icon}}" mode="aspectFill"></image>
+      </view>
+      <view class="header-name">
+        <text>{{mediaInfo.chlname}}</text>
+      </view>
+      <view class="header-des">
+        <text class="line">粉丝：{{mediaInfo.subCount}}</text>
+        <text>阅读：{{mediaInfo.readCount}}</text>
+      </view>
+
+      <!--导航-->
+      <view class="nav{{navFixed ? ' fixed' : ''}}">
+        <view id="nav-art" bindtap="navTap" class="nav-item{{selected == 'article' ? ' selected' : ''}}" wx:if="{{articleList.length != 0}}">
+          <text>文章</text>
+        </view>
+        <view id="nav-video" bindtap="navTap" class="nav-item{{selected == 'video' ? ' selected' : ''}}" wx:if="{{videoList.length != 0}}">
+          <text>视频</text>
+        </view>
+        <view id="nav-des" bindtap="navTap" class="nav-item{{selected == 'des' ? ' selected' : ''}}">
+          <text>介绍</text>
+        </view>
+      </view>
+    </view>
+
+    <!--文章列表-->
+    <view class="art-list" hidden="{{selected != 'article'}}">
+      <block wx:for="{{articleList}}">
+        <template is="{{'picShowType_'+ item.picShowType }}" data="{{...item}}" />
+      </block>
+      <view class="list-bottom loading" wx:if="{{showMoreArticle == true}}">正在加载</view>
+      <view class="list-bottom" wx:else>已显示全部内容</view>
+    </view>
+
+    <!--视频列表-->
+    <view class="video-list" hidden="{{selected != 'video'}}">
+      <block wx:for="{{videoList}}">
+        <template is="{{'picShowType_'+ item.picShowType }}" data="{{...item}}" />
+      </block>
+      <view class="list-bottom loading" wx:if="{{showMoreVideo == true}}">正在加载</view>
+      <view class="list-bottom" wx:else>已显示全部内容</view>
+    </view>
+
+    <!--介绍页卡-->
+    <view class="des-box" hidden="{{selected != 'des'}}">
+        <view class="des-wechat-box" wx:if="{{!!mediaInfo.wechat}}">
+            <view class="des-img-wrap"><image src="http://mat1.gtimg.com/www/images/newsapp/wxapp/kuaibao/wechat_icon.png" mode="aspectFit"></image></view>
+            <view class="des-wechat-text">
+                <view class="des-wechat-name">{{mediaInfo.chlname}}</view>
+                <view class="des-wechat-num">微信号：{{mediaInfo.wechat}}</view>
+            </view>
+        </view>
+        <view class="des-sign">签名：{{mediaInfo.desc}}</view>
+    </view>
+
+
+
+
+    <!--无图模式-->
+    <template name="picShowType_1">
+      <navigator class="relate-item no-pic" url="{{url}}" hover-class="hover" hover-stay-time="100" hover-start-time="0" open-type="redirect">
+        <view class="rl-title">{{title}}</view>
+        <view class="rl-src">{{chlname}}
+          <text class="rl-comments" wx:if="{{comments && comments != 0}}">{{comments}}评</text>
+        </view>
+      </navigator>
+      <view class="rl-line"></view>
+    </template>
+
+    <!--无图模式结束-->
+
+    <!--小图模式-->
+    <template name="picShowType_0">
+      <navigator class="relate-item simple-pic" url="{{url}}" hover-class="hover" hover-stay-time="100" hover-start-time="0" open-type="redirect">
+        <view class="rl-simple-text">
+          <view class="rl-title">{{title}}</view>
+          <view class="rl-src">{{chlname}}
+            <text class="rl-comments" wx:if="{{playcount && playcount != 0}}">{{playcount}}播放</text>
+            <text class="rl-comments" wx:elif="{{comments && comments != 0}}">{{comments}}评</text>
+          </view>
+        </view>
+        <view class="rl-simple-wrap">
+          <image class="rl-simple-img" src="{{imgs[0]}}" mode="aspectFill"></image>
+          <view class="rl-img-mask" wx:if="{{hasVideo == 1}}"></view>
+          <view class="video-tag" wx:if="{{hasVideo == 1}}">{{duration}}</view>
+        </view>
+      </navigator>
+      <view class="rl-line"></view>
+    </template>
+
+    <!--小图模式结束-->
+
+    <!--组图模式-->
+    <template name="picShowType_2">
+      <navigator class="relate-item group-pic" url="{{url}}" hover-class="hover" hover-stay-time="100" hover-start-time="0" open-type="redirect">
+        <view class="rl-title">{{title}}</view>
+        <view class="rl-group-box">
+          <view class="rl-group-wrap">
+            <image class="rl-group-img" src="{{imgs[0]}}" mode="aspectFill"></image>
+          </view>
+          <view class="rl-group-wrap">
+            <image class="rl-group-img" src="{{imgs[1]}}" mode="aspectFill"></image>
+          </view>
+          <view class="rl-group-wrap">
+            <image class="rl-group-img" src="{{imgs[2]}}" mode="aspectFill"></image>
+          </view>
+        </view>
+        <view class="rl-src">{{chlname}}
+          <text class="rl-comments" wx:if="{{comments && comments != 0}}">{{comments}}评</text>
+        </view>
+      </navigator>
+      <view class="rl-line"></view>
+    </template>
+
+    <!--组图模式结束-->
+
+    <!--组图模式-->
+    <template name="picShowType_3">
+      <navigator class="relate-item big-pic" url="{{url}}" hover-class="hover" hover-stay-time="100" hover-start-time="0" open-type="redirect">
+        <view class="rl-title">{{title}}</view>
+        <view class="rl-big-box">
+          <image class="rl-big-img" src="{{imgs[0]}}" mode="aspectFill"></image>
+        </view>
+        <view class="rl-src">{{chlname}}
+          <text class="rl-comments" wx:if="{{comments && comments != 0}}">{{comments}}评</text>
+        </view>
+      </navigator>
+      <view class="rl-line"></view>
+    </template>
+
+    <!--组图模式结束-->
+  </scroll-view>
+</view>

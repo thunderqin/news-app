@@ -1,0 +1,68 @@
+  <!--评论显示单元模块-->
+  <template name="comment_item">
+    <view class="ci-box">
+
+      <!--作者回复-->
+      <block wx:if="{{parent && sender.media_reply == 1}}">
+        <view class="ci-left">
+          <view class="ci-header">
+            <image src="{{parent.head_url}}" mode="aspectFill"></image>
+          </view>
+        </view>
+        <view class="ci-right">
+          <view class="ci-info">
+            <view class="ci-name">{{parent.nick}}</view>
+            <view class="ci-des">{{parent.province_city ? parent.province_city + ' ' : ''}}{{parent.pub_time_text}}</view>
+          </view>
+          <view class="ci-content">{{parent.reply_content}}</view>
+          <view wx:if="{{sender.pic && sender.pic.length > 0}}" class="ci-img" bindtap="commentImgTap" data-url="{{sender.pic[0].origUrl}}">
+            <image src="{{sender.pic[0].url}}" mode="aspectFill"></image>
+          </view>
+          <view class="ci-reply-media">
+            <view class="ci-reply-name-media">{{sender.nick}}</view>
+            <view class="ci-reply-content-media">{{sender.reply_content}}</view>
+          </view>
+        </view>
+      </block>
+
+      <!--其他情况-->
+      <block wx:else>
+        <view class="ci-left">
+          <view class="ci-header">
+            <image src="{{sender.head_url}}" mode="aspectFill"></image>
+          </view>
+        </view>
+        <view class="ci-right">
+          <view class="ci-info">
+            <view class="ci-name">{{sender.nick}}</view>
+            <view class="ci-des">{{sender.province_city ? sender.province_city + ' ' : ''}}{{sender.pub_time_text}}</view>
+          </view>
+          <view class="ci-content">{{sender.reply_content}}
+            <view class="ci-reply" wx:if="{{parent}}"> ||
+              <text class="ci-reply-name">{{parent.nick}}</text>：{{parent.reply_content}}
+            </view>
+          </view>
+          <view wx:if="{{sender.pic && sender.pic.length > 0}}" class="ci-img" bindtap="commentImgTap" data-url="{{sender.pic[0].origUrl}}">
+            <image src="{{sender.pic[0].url}}" mode="aspectFill"></image>
+          </view>
+          <view wx:if="{{parent.pic && parent.pic.length > 0}}" class="ci-img-reply" bindtap="commentImgTap" data-url="{{parent.pic[0].origUrl}}">查看原图</view>
+        </view> 
+      </block>
+    </view>
+  </template>
+
+  <!--评论输入模板-->
+  <template name="comment_input">
+    <!--<view class="ci-blur-box">
+      <view class="ci-blur-input"><text>说一下...</text></view>
+      <view class="ci-blur-comment-num"><text>1.5万</text></view>
+    </view>-->
+    <view id="ci-input-wrap">
+      <view class="ci-input-box">
+        <textarea id="ci-input" />
+        <view class="ci-input-bottom">
+          <button id="pub-comment-btn">发表</button>
+        </view>
+      </view>
+    </view>
+  </template>

@@ -1,0 +1,36 @@
+<template name="warn">
+<view class="kb-warn-wrap">
+    <view class="kb-loadingbg-wrap" wx:if="{{showType=='loading'}}">
+       <image class="kb-loading-image" src="http://mat1.gtimg.com/www/images/newsapp/wxapp/news/LOADING2.gif"></image>
+      <image class="kb-logo-image" src="http://mat1.gtimg.com/www/images/newsapp/wxapp/news/bgLogo.png"></image>
+      
+    </view>
+    <view class="kb-blank-wrap kb-zwt-wrap"  wx:if="{{showType=='blank'}}">
+      <image class="kb-warn-image" src="http://mat1.gtimg.com/www/images/newsapp/kuaibao/ic_default_alpha.png"></image>
+      <text class="bk-warn-black">频道无内容，换一个频道试试</text>
+    </view>
+    <view class="kb-noNet-wrap  kb-zwt-wrap" wx:if="{{showType=='nonet'}}">
+      <image class="kb-warn-image" src="http://mat1.gtimg.com/www/images/newsapp/kuaibao/ic_default_alpha.png"></image>
+      <text class="bk-warn-black">网络无法连接，请检查网络设置</text>
+    </view>
+    <view class="kb-404-wrap  kb-zwt-wrap" wx:if="{{showType=='404'}}">
+      <image class="kb-warn-image" src="http://mat1.gtimg.com/www/images/newsapp/kuaibao/ic_default_alpha.png"></image>
+      <text class="bk-warn-black">页面出错，请稍后再试</text>
+    </view>
+</view>
+</template>
+
+<template name="article-warn">
+  <view class="kb-loadingbg-wrap" wx:if="{{showType == 0}}">
+       <image class="kb-loading-image" src="http://mat1.gtimg.com/www/images/newsapp/wxapp/news/LOADING2.gif"></image>
+      <image class="kb-logo-image" src="http://mat1.gtimg.com/www/images/newsapp/wxapp/news/bgLogo.png"></image>
+  </view>
+  <view class="kb-blank-wrap" wx:if="{{showType == 2}}">
+    <image class="kb-warn-image" src="http://mat1.gtimg.com/www/images/newsapp/kuaibao/ic_default_alpha.png"></image>
+    <text class="bk-warn-black">文章无内容，换一个频道试试</text>
+  </view>
+  <view class="kb-noNet-wrap" wx:if="{{showType == 3}}">
+    <image class="kb-warn-image" src="http://mat1.gtimg.com/www/images/newsapp/kuaibao/ic_default_alpha.png"></image>
+    <text class="bk-warn-black">网络无法连接，请检查网络设置</text>
+  </view>
+</template>

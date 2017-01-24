@@ -1,0 +1,184 @@
+<import src="../../../common/tpl/warn.wxml"/>
+
+<template is="article-warn" data="{{showType: showType}}" />
+<view class="v-container" wx:if="{{showType == 1}}">
+  <view class="video-box">
+    <video class="video" id="{{videoInfo.vid}}"  wx:if="{{videoInfo.loading == 'ok'}}" src="{{videoInfo.src}}" controls="{{!videoInfo.is_ad}}" autoplay bindended="__onTvpEnded" bindplay="__onTvpPlay" bindpause="__onTvpPause" bindended="__onTvpEnded" binderror="__onTvpError"
+    bindtimeupdate="__onTvpTimeupdate"></video>
+    <image class="video_poster" src="{{videoInfo.img}}" mode="aspectFill" hidden="{{!!videoInfo.playing}}"></image>
+    <view class="video_play_btn{{videoInfo.loading == 'loading' ? ' loading' : ''}}" bindtap="playBtnTap" data-vid="{{videoInfo.vid}}" hidden="{{!!videoInfo.playing}}"></view>
+
+    <!--<image class="video_poster" src="{{videoInfo.img}}" mode="aspectFill" hidden="{{posterClicked}}"></image>
+    <view class="video_play_btn" bindtap="playBtnTap" id="{{videoInfo.vid}}" hidden="{{posterClicked}}"></view>-->
+  </view>
+
+  <!--外层包一个scroll-view,因为微信暂时不支持视频fixed定位-->
+  <scroll-view class="content-wrap" scroll-y="true" bindscrolltolower="_onScrollToBottom" lower-threshold="40">
+    <view class="kb-loadingbg-wrap" wx:if="{{showListType == 0}}">
+      <image class="kb-logo-image" src="http://mat1.gtimg.com/www/images/newsapp/wxapp/kuaibao/holder_bigpic.png" style="margin:300rpx auto 24rpx;"></image>
+      <image class="kb-loading-image" src="http://mat1.gtimg.com/www/images/newsapp/wxapp/kuaibao/global_detail_loading.gif"></image>
+    </view>
+    <block wx:else>
+
+      <!--title-->
+      <view class="title">{{videoInfo.title}}</view>
+
+      <!--播放数区域-->
+      <view class="src">{{videoInfo.playcount}}次播放</view>
+
+      <!--媒体名片区域-->
+      <view class="media-card" wx:if="{{videoInfo.card}}">
+        <navigator class="mc-header" url="/pages/article/media/media?chlid={{videoInfo.card.chlid}}" open-type="redirect">
+          <image src="{{videoInfo.card.icon}}" mode="aspectFill"></image>
+        </navigator>
+        <view class="mc-con">
+          <navigator class="mc-name" url="/pages/article/media/media?chlid={{videoInfo.card.chlid}}" open-type="redirect">{{videoInfo.card.chlname}}</navigator>
+          <view class="mc-sub">{{videoInfo.card.desc}}</view>
+        </view>
+      </view>
+
+      <!--相关-->
+      <view class="relate-box" hidden="{{videoList.length == 0}}">
+        <!--<view class="rl-line"></view>-->
+        <block wx:for="{{videoList}}">
+
+          <!--小图模式-->
+          <navigator id="{{item.vid}}" data-newsid="{{item.id}}" data-vid="{{item.vid}}" class="relate-item simple-pic{{item.selected}}" hover-class="hover" hover-stay-time="100" hover-start-time="0" open-type="redirect" bindtap="itemTap" url="#">
+            <view class="rl-simple-text">
+              <view class="rl-title">{{item.title}}</view>
+              <view class="rl-src" wx:if="{{item.card && item.card.chlname}}">{{item.card.chlname}}
+                <text>{{item.playcount}}次播放</text>
+              </view>
+              <view class="rl-src" wx:elif="{{item.src}}">{{item.src}}
+                <text>{{item.playcount}}次播放</text>
+              </view>
+              <view class="rl-src" wx:elif="{{item.tags[0]}}">{{item.tags[0]}}
+                <text>{{item.playcount}}次播放</text>
+              </view>
+            </view>
+            <view class="rl-simple-wrap">
+              <image class="rl-simple-img" src="{{item.img}}" mode="aspectFill"></image>
+              <view class="rl-img-mask"></view>
+              <view class="playing-tag" wx:if="{{item.selected == ' selected'}}">正在播放</view>
+              <view class="video-tag" wx:else>{{item.timeDesc}}</view>
+            </view>
+          </navigator>
+          <view class="rl-line" wx:if="{{videoList.length != index+1}}"></view>
+
+          <!--小图模式结束-->
+        </block>
+      </view>
+    </block>
+
+    <!--相关结束-->
+
+    <!--评论开始-->
+
+    <!--精选评论-->
+    <view class="comment-box comment-selected" wx:if="{{comment_selected && comment_selected.length > 0}}" hidden="{{videoList.length == 0}}">
+      <view class="comment-top-title">精选评论</view>
+      <view class="comment-line"></view>
+      <block wx:for="{{comment_selected}}">
+        <template is="comment_item" data="{{...item}}" />
+      </block>
+    </view>
+
+    <!--精选评论结束-->
+
+    <!--热门评论-->
+    <view class="comment-box comment-hot" wx:if="{{comment_hot && comment_hot.length > 0}}" hidden="{{videoList.length == 0}}">
+      <view class="comment-top-title">热门评论</view>
+      <view class="comment-line"></view>
+      <block wx:for="{{comment_hot}}">
+        <template is="comment_item" data="{{...item}}" />
+      </block>
+    </view>
+
+    <!--热门评论结束-->
+
+    <!--最新评论-->
+    <view class="comment-box comment-new" hidden="{{videoList.length == 0}}">
+      <view class="comment-top-title">最新评论{{comment_count ? '('+comment_count+')' : ''}}</view>
+      <view class="comment-line"></view>
+      <block wx:if="{{commentState == 1}}">
+        <view class="no-comment">
+
+          <!--<image src="http://mat1.gtimg.com/www/images/newsapp/wxapp/kuaibao/mascot_pinglun.png" mode="aspectFill"></image>
+          <view class="comment-ext-line1">来都来了，说几句吧！</view>-->
+          <image src="http://mat1.gtimg.com/www/images/newsapp/wxapp/kuaibao/mascot_kong.png" mode="aspectFill"></image>
+          <view class="comment-ext-line2">暂无评论</view>
+        </view>
+      </block>
+      <block wx:elif="{{commentState == 2}}">
+        <view class="forbidden-comment">
+          <image src="http://mat1.gtimg.com/www/images/newsapp/wxapp/kuaibao/mascot_jinyan.png" mode="aspectFill"></image>
+          <view class="comment-ext-line1">评论被禁止</view>
+          <view class="comment-ext-line2">本新闻一调制静音模式</view>
+        </view>
+      </block>
+      <block wx:elif="{{commentState === 0}}">
+        <block wx:for="{{comment_new}}">
+          <template is="comment_item" data="{{...item}}" />
+        </block>
+        <view class="list-bottom" wx:if="{{lastReplyId != false && !reachBottom}}">上拉加载更多</view>
+        <view class="list-bottom loading" wx:elif="{{lastReplyId != false}}">正在加载</view>
+        <view class="list-bottom" wx:else>已显示全部内容</view>
+      </block>
+    </view>
+
+    <!--最新评论结束-->
+
+    <!--评论结束-->
+    <template name="comment_item">
+      <view class="ci-box">
+
+        <!--作者回复-->
+        <block wx:if="{{parent && sender.media_reply == 1}}">
+          <view class="ci-left">
+            <view class="ci-header">
+              <image src="{{parent.head_url}}" mode="aspectFill"></image>
+            </view>
+          </view>
+          <view class="ci-right">
+            <view class="ci-info">
+              <view class="ci-name">{{parent.nick}}</view>
+              <view class="ci-des">{{parent.province_city ? parent.province_city + ' ' : ''}}{{parent.pub_time_text}}</view>
+            </view>
+            <view class="ci-content">{{parent.reply_content}}</view>
+            <view wx:if="{{sender.pic && sender.pic.length > 0}}" class="ci-img" bindtap="commentImgTap" data-url="{{sender.pic[0].origUrl}}">
+              <image src="{{sender.pic[0].url}}" mode="aspectFill"></image>
+            </view>
+            <view class="ci-reply-media">
+              <view class="ci-reply-name-media">{{sender.nick}}</view>
+              <view class="ci-reply-content-media">{{sender.reply_content}}</view>
+            </view>
+          </view>
+        </block>
+
+        <!--其他情况-->
+        <block wx:else>
+          <view class="ci-left">
+            <view class="ci-header">
+              <image src="{{sender.head_url}}" mode="aspectFill"></image>
+            </view>
+          </view>
+          <view class="ci-right">
+            <view class="ci-info">
+              <view class="ci-name">{{sender.nick}}</view>
+              <view class="ci-des">{{sender.province_city ? sender.province_city + ' ' : ''}}{{sender.pub_time_text}}</view>
+            </view>
+            <view class="ci-content">{{sender.reply_content}}
+              <view class="ci-reply" wx:if="{{parent}}"> ||
+                <text class="ci-reply-name">{{parent.nick}}</text>：{{parent.reply_content}}
+              </view>
+            </view>
+            <view wx:if="{{sender.pic && sender.pic.length > 0}}" class="ci-img" bindtap="commentImgTap" data-url="{{sender.pic[0].origUrl}}">
+              <image src="{{sender.pic[0].url}}" mode="aspectFill"></image>
+            </view>
+            <view wx:if="{{parent.pic && parent.pic.length > 0}}" class="ci-img-reply" bindtap="commentImgTap" data-url="{{parent.pic[0].origUrl}}">查看原图</view>
+          </view>
+        </block>
+      </view>
+    </template>
+  </scroll-view>
+</view>

@@ -1,0 +1,197 @@
+@import "../../../common/css/article.wxss";
+@import "../../../common/css/comment.wxss";
+.art-container {
+  font-family: "PingFang SC", Helvetica, Arial, "微软雅黑", "黑体";
+  padding: 30rpx 30rpx 1rpx 30rpx;
+}
+
+.title {
+  font-size: 46rpx;
+  color: #1a1a1a;
+  line-height: 69rpx;
+  text-align: justify;
+  margin-bottom: 50rpx;
+  font-weight: bold;
+}
+
+.media-card {
+  margin-bottom: 50rpx;
+  height: 40rpx;
+  display: flex;
+  color: #111;
+}
+
+.mc-header {
+  width: 40rpx;
+  height: 40rpx;
+  overflow: hidden;
+  border-radius: 50%;
+}
+.mc-header image{
+  height: 100%;
+  width: 100%;
+  display: block;
+}
+
+.mc-name {
+  height: 40rpx;
+  font-size: 24rpx;
+
+  line-height: 40rpx;
+  margin: 0 20rpx;
+}
+
+.mc-des {
+  font-size: 24rpx;
+  color: #111;
+  height: 40rpx;
+  line-height: 40rpx;
+  text-align: left;
+}
+
+.src {
+  font-size: 24rpx;
+  color: #666;
+  height: 28rpx;
+  line-height: 28rpx;
+  text-align: left;
+  margin-bottom: 50rpx;
+}
+
+.src text {
+  margin-right: 10rpx;
+}
+
+.summary {
+  color: #666;
+  text-justify: inter-ideograph;
+  font-size: 34rpx;
+  line-height: 50rpx;
+  margin: 30rpx 20rpx;
+  text-align: justify;
+}
+
+.summary::before {
+  content: '';
+  display: block;
+  height: 16rpx;
+  background: url(http://mat1.gtimg.com/www/images/newsapp/wxapp/news/profiles_up.png) center left no-repeat;
+  background-size: 34rpx 16rpx;
+  margin-bottom: 20rpx;
+}
+.summary::after {
+  content: '';
+  display: block;
+  height: 16rpx;
+  background: url(http://mat1.gtimg.com/www/images/newsapp/wxapp/news/profiles_down.png) center right no-repeat;
+  background-size: 34rpx 16rpx;
+  margin-top: 20rpx;
+}
+
+.content {
+  margin: 50rpx 0;
+}
+
+/*文本*/
+
+.text {
+  font-size: 36rpx;
+  line-height: 54rpx;
+  margin: 50rpx 0;
+  text-align: justify;
+}
+
+/*图片*/
+
+.img-box {
+  width: 100%;
+  margin: 50rpx 0;
+  position: relative;
+  background: #eaeaea url(http://mat1.gtimg.com/www/images/newsapp/wxapp/news/ic_default_bg.png) center no-repeat;
+  background-size: 100rpx;
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+}
+
+.img-desc {
+  font-size: 26rpx;
+  line-height: 32rpx;
+  color: #666;
+  margin: -20rpx 0 50rpx 0;
+}
+
+.gif-hold {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.gif-bottom {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  height: 44rpx;
+  line-height: 44rpx;
+  font-size: 28rpx;
+  color: #fff;
+}
+
+.gif-text {
+  background: rgba(0, 0, 0, 0.4);
+  display: inline-block;
+  padding: 0 10rpx;
+}
+
+.gif-size {
+  background: #05c;
+  display: inline-block;
+  padding: 0 10rpx;
+}
+
+/*视频*/
+
+.video-box {
+  width: 100%;
+  margin: 50rpx 0;
+  position: relative;
+  height: 390rpx;
+}
+
+.video-box .video_play_btn, .video-box .video_poster, .video-box .video {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+.video-box .video_play_btn {
+  z-index: 999;
+}
+
+.video-box .video_poster {
+  z-index: 998;
+}
+
+.video-box .video {
+  z-index: 8;
+}
+
+.video-box .video_play_btn {
+  background: url(http://mat1.gtimg.com/www/images/newsapp/wxapp/kuaibao/icon_video.png) center no-repeat;
+  background-size: 90rpx;
+}
+/*.video-box .video_play_btn.loading {
+  background:url(http://mat1.gtimg.com/www/images/newsapp/wxapp/kuaibao/global_detail_loading.gif) center no-repeat;
+  background-size: 60rpx 20rpx;
+}*/
+.video-box .video_play_btn.loading {
+  background: none;
+}
+
+.split-line{
+  margin: 30rpx 0;
+  height: 10rpx;
+  background: #f1f1f1;
+}

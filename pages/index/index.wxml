@@ -1,0 +1,31 @@
+<import src="../../common/tpl/newsItem.wxml" />
+<import src="../../common/tpl/warn.wxml"/>
+
+<!--index.wxml-->
+<view class="index-page kb-bg" bindtouchstart="touchstart" bindtouchend="touchend">
+  <template is="warn" data="{{showType}}"/>
+  <view class="container">
+    <view class="bk-top-warn base-center" animation="{{animationData}}" wx:if="{{isShowTopNum}}">
+      <text class="kb-new-txt">{{pullNewsInfo}}</text>
+    </view>
+    <block wx:for="{{pullListDate}}" wx:key="unique">
+      <template is="{{'tpl_'+ item.picShowType }}" data="{{...item}}" />
+    </block>
+
+    <!--刷新-->
+    <view class="reflash-wrap" wx:if="{{pullListDate.length && newsListData.length}}" bindtap="reflash">
+      <text class="reflash-txt">上次看到这里</text>
+    </view>
+
+    <!--旧新闻-->
+    <block wx:for="{{newsListData}}" wx:key="old">
+      <template is="{{'tpl_'+item.picShowType}}" data="{{...item}}" />
+    </block>
+
+    <!--正在加载-->
+    <view class="kb-bottom-lod-wrap">
+      <image class="kb-loading-image" wx:if="{{newsListData.length > 3&& !isNoMore}}" src="http://mat1.gtimg.com/www/images/newsapp/wxapp/news/LOADING.gif"></image>
+      <text class="kb-bottom-nomore" wx:if="{{isNoMore}}">都看完了，试试别的频道吧</text>
+    </view>
+  </view>
+</view>

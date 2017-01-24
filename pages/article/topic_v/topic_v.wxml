@@ -1,0 +1,69 @@
+<import src="../../../common/tpl/warn.wxml"/>
+
+<template is="article-warn" data="{{showType: showType}}" />
+<view class="v-container" wx:if="{{showType == 1}}">
+  <view class="video-box">
+    <video class="video" id="{{videoInfo.vid}}"  wx:if="{{videoInfo.loading == 'ok'}}" src="{{videoInfo.src}}" controls="{{!videoInfo.is_ad}}" autoplay bindended="__onTvpEnded" bindplay="__onTvpPlay" bindpause="__onTvpPause" bindended="__onTvpEnded" binderror="__onTvpError"
+    bindtimeupdate="__onTvpTimeupdate"></video>
+    <image class="video_poster" src="{{videoInfo.img}}" mode="aspectFill" hidden="{{!!videoInfo.playing}}"></image>
+    <view class="video_play_btn{{videoInfo.loading == 'loading' ? ' loading' : ''}}" bindtap="playBtnTap" data-vid="{{videoInfo.vid}}" hidden="{{!!videoInfo.playing}}"></view>
+    <!--<image class="video_poster" src="{{videoInfo.img}}" mode="aspectFill" hidden="{{posterClicked}}"></image>
+    <view class="video_play_btn" bindtap="playBtnTap" id="{{videoInfo.vid}}" hidden="{{posterClicked}}"></view>-->
+  </view>
+
+  <!--外层包一个scroll-view,因为微信暂时不支持视频fixed定位-->
+  <scroll-view class="content-wrap" scroll-y="true">
+
+    <!--title-->
+    <view class="title">{{videoInfo.title}}</view>
+
+    <!--播放数区域-->
+    <view class="src">{{videoInfo.playcount}}次播放</view>
+
+    <!--媒体名片区域-->
+    <view class="media-card" wx:if="{{videoInfo.card}}">
+     <navigator class="mc-header" url="/pages/article/media/media?chlid={{videoInfo.card.chlid}}" open-type="redirect">
+        <image src="{{videoInfo.card.icon}}" mode="aspectFill"></image>
+      </navigator>
+      <view class="mc-con">
+        <navigator class="mc-name" url="/pages/article/media/media?chlid={{videoInfo.card.chlid}}" open-type="redirect">{{videoInfo.card.chlname}}</navigator>
+        <view class="mc-sub">{{videoInfo.card.desc}}</view>
+      </view>
+    </view>
+
+    <!--相关-->
+    <view class="relate-box" hidden="{{videoList.length == 0}}">
+      <view class="rl-top-title-left">视频专辑</view>
+      <!--<view class="rl-line"></view>-->
+      <block wx:for="{{videoList}}">
+
+        <!--小图模式-->
+        <navigator id="{{item.vid}}" class="relate-item simple-pic{{item.selected}}" hover-class="hover" hover-stay-time="100" hover-start-time="0" open-type="redirect" bindtap="itemTap" url="#">
+          <view class="rl-simple-text">
+            <view class="rl-title">{{item.title}}</view>
+            <view class="rl-src" wx:if="{{item.card && item.card.chlname}}">{{item.card.chlname}}
+              <text>{{item.playcount}}次播放</text>
+            </view>
+            <view class="rl-src" wx:elif="{{item.src}}">{{item.src}}
+              <text>{{item.playcount}}次播放</text>
+            </view>
+            <view class="rl-src" wx:elif="{{item.tags[0]}}">{{item.tags[0]}}
+              <text>{{item.playcount}}次播放</text>
+            </view>
+          </view>
+          <view class="rl-simple-wrap">
+            <image class="rl-simple-img" src="{{item.img}}" mode="aspectFill"></image>
+            <view class="rl-img-mask"></view>
+            <view class="playing-tag" wx:if="{{item.selected == ' selected' && !!videoInfo.playing}}">正在播放</view>
+            <view class="video-tag" wx:else>{{item.timeDesc}}</view>
+          </view>
+        </navigator>
+        <view class="rl-line" wx:if="{{videoList.length != index+1}}"></view>
+
+        <!--小图模式结束-->
+      </block>
+    </view>
+
+    <!--相关结束-->
+  </scroll-view>
+</view>

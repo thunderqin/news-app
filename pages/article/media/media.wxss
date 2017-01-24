@@ -1,0 +1,173 @@
+@import "../../../common/css/article.wxss";
+
+.s-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #f6f6f6;
+}
+
+.scroll-con {
+  height: 100%;
+  width: 100%;
+}
+
+.header-box {
+  position: relative;
+  height: 350rpx;
+  width: 100%;
+  background: #fff;
+  padding: 0rpx;
+}
+
+.header-img-wrap {
+  margin: 30rpx auto 15rpx auto;
+  width: 100rpx;
+  height: 100rpx;
+  overflow: hidden;
+  border-radius: 50rpx;
+}
+
+.header-img-wrap image {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.header-name {
+  height: 38rpx;
+  line-height: 38rpx;
+  font-size: 28rpx;
+  text-align: center;
+  margin-bottom: 8rpx;
+}
+
+.header-name text {
+  display: inline-block;
+  position: relative;
+  color: #1a1a1a;
+  padding-right: 110rpx;
+  background-image: url(http://mat1.gtimg.com/www/images/newsapp/cyshare/detail_icon_qiehao.png);
+  background-size: 100rpx 25rpx;
+  background-position: center right;
+  background-repeat: no-repeat;
+  margin-left: 110rpx;
+}
+
+.header-des {
+  height: 30rpx;
+  line-height: 30rpx;
+  font-size: 26rpx;
+  color: #888;
+  text-align: center;
+}
+
+.header-des text {
+  padding: 0 28rpx;
+}
+
+.header-des text.line {
+  border-right: 1px solid #888;
+}
+
+/*导航*/
+
+.nav {
+  height: 100rpx;
+  border-top: 1rpx solid #e4e4e4;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  color: #353535;
+  font-size: 30rpx;
+}
+.nav.fixed{
+  position: fixed;
+  top: 0;
+  bottom: auto!important;
+  z-index: 999;
+  background: #fff;
+  border-top: none;
+}
+
+.nav .nav-item {
+  height: 100rpx;
+  line-height: 100rpx;
+  display: inline-block;
+  padding: 0 35rpx;
+}
+
+.nav .nav-item text {
+  padding: 0 25rpx;
+  position: relative;
+  display: block;
+  height: 100%;
+}
+
+.nav .nav-item.selected {
+  color: #1479d7;
+}
+
+.nav .nav-item.selected text::after {
+  content: '';
+  position: absolute;
+  height: 6rpx;
+  width: 100%;
+  border-radius: 3rpx;
+  background: #1479d7;
+  bottom: 0;
+  left: 0;
+}
+
+.des-wechat-box {
+  padding: 40rpx 0;
+  margin: 0 30rpx;
+  border-bottom: 1rpx solid #e4e4e4;
+}
+
+.des-img-wrap {
+  width: 86rpx;
+  height: 76rpx;
+  float: left;
+}
+
+.des-img-wrap image {
+  height: 100%;
+  width: 100%;
+}
+
+.des-wechat-text {
+  height: 76rpx;
+  width: calc(100% - 106rpx);
+  float: right;
+}
+
+.des-wechat-text .des-wechat-name {
+  font-size: 36rpx;
+  color: #000;
+  line-height: 36rpx;
+  margin-bottom: 10rpx;
+}
+
+.des-wechat-text .des-wechat-num {
+  font-size: 28rpx;
+  color: #999;
+  letter-spacing: 0;
+  line-height: 28rpx;
+}
+
+.des-wechat-box::after {
+  content: '';
+  clear: both;
+  display: block;
+}
+
+.des-sign {
+  padding: 30rpx;
+  font-size: 28rpx;
+  color: #666;
+  line-height: 36rpx;
+}

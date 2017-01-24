@@ -1,0 +1,47 @@
+.base-pr{
+  position: relative
+}
+.base-pa{
+  position: absolute;
+}
+.base-left {
+  float: left;
+}
+
+.base-right {
+  float: right;
+}
+
+.base-center{
+  text-align: center;
+}
+
+.base-flex-box {
+  display: flex;
+}
+
+.base-flex1 {
+  flex: 1;
+}
+.base-line1 {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.base-line2 {
+  display: -webkit-box;
+  overflow: hidden;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.base-line3 {
+  display: -webkit-box;
+  overflow: hidden;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+.base-w100{
+  width: 100%;
+}

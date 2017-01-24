@@ -1,0 +1,141 @@
+<view class="tpl-list">
+
+  <!--图文标准2行-->
+  <template name="tpl_0">
+    <navigator url="{{pathUrl}}" class="kb-card " wx:if="{{!isOld || !stick}}" bindtap="tapEven" data-newsid="{{id}}" data-seqno="{{seq_no}}" id="aaaaa" hover-start-time="200">
+      <view class="kb-item-content base-flex-box sim2-style ">
+        <view class="sim2-content-wrap base-flex1">
+          <text class="kb-title base-line2 sim2-text {{isClicked?'kb-clicked':''}}">{{title}}</text>
+          <view class="bottom-wrap">
+            <view class="bottom-content">
+              <text class="kb-red-em" wx:if="{{changeInfo.vexpr && changeInfo.vexpr.title}}" style="color:{{changeInfo.vexpr.color}};background-color:{{changeInfo.vexpr.bgcolor}}">{{changeInfo.vexpr.title}}</text>
+              <text class="kb-span kb-chlname">{{source}}</text>
+              <text class="kb-span kb-item-comment" wx:if="{{changeInfo.comments}}">{{changeInfo.comments}}评</text>
+            </view>
+            <view class="kb-del del-btn"></view>
+          </view>
+        </view>
+        <view class="sim-image-wrap kb-image-box">
+          <image class="kb-img-center" mode="aspectFill" src="{{thumbnails}}"></image>
+        </view>
+      </view>
+    </navigator>
+  </template>
+
+  <!--没有图片模板-->
+  <template name="tpl_1">
+    <navigator url="{{pathUrl}}" class="kb-card" wx:if="{{!isOld || !stick}}" bindtap="tapEven" data-newsid="{{id}}" data-seqno="{{seq_no}}" hover-start-time="200">
+      <view class="kb-item-content style-zt ">
+        <text class="kb-title {{isClicked?'kb-clicked':''}}">{{title}}</text>
+        <view class="bottom-wrap">
+          <view class="bottom-content">
+            <text class="kb-red-em" wx:if="{{changeInfo.vexpr && changeInfo.vexpr.title}}" style="color:{{changeInfo.vexpr.color}};background-color:{{changeInfo.vexpr.bgcolor}}">{{changeInfo.vexpr.title}}</text>
+            <text class="kb-span kb-chlname">{{source}}</text>
+            <text class="kb-span kb-item-comment" wx:if="{{changeInfo.comments}}">{{changeInfo.comments}}评</text>
+          </view>
+          <view class="kb-del del-btn" id="delbtn"></view>
+          <image wx:if="!delet" class="del-hate" mode="aspectFit" src="http://mat1.gtimg.com/www/images/newsapp/wxapp/kuaibao/btn_nointerst.png"></image>
+        </view>
+      </view>
+    </navigator>
+  </template>
+
+  <!--多图-->
+  <template name="tpl_2">
+    <navigator url="{{pathUrl}}" class="kb-card" wx:if="{{!isOld || !stick}}" bindtap="tapEven" data-newsid="{{id}}" data-seqno="{{seq_no}}" hover-start-time="200">
+      <view class="kb-item-content style-muti">
+        <text class="kb-title {{isClicked?'kb-clicked':''}}">{{title}}</text>
+        <view class="muti-img-wrap base-flex-box">
+          <view class="muti-item base-flex1">
+            <image class="kb-img-center" mode="aspectFill" src="{{thumbnails_qqnews[1]}}"></image>
+          </view>
+          <view class="muti-item base-flex1 middle-img">
+            <image class="kb-img-center" mode="aspectFill" src="{{thumbnails_qqnews[2]}}"></image>
+          </view>
+          <view class="muti-item base-flex1">
+            <image class="kb-img-center" mode="aspectFill" src="{{thumbnails_qqnews[3]}}"></image>
+          </view>
+        </view>
+        <view class="bottom-wrap">
+          <view class="bottom-content">
+            <text class="kb-red-em" wx:if="{{changeInfo.vexpr && changeInfo.vexpr.title}}" style="color:{{changeInfo.vexpr.color}};background-color:{{changeInfo.vexpr.bgcolor}}">{{changeInfo.vexpr.title}}</text>
+            <text class="kb-span kb-chlname">{{source}}</text>
+            <text class="kb-span kb-item-comment" wx:if="{{changeInfo.comments}}">{{changeInfo.comments}}评</text>
+          </view>
+          <view class="kb-del del-btn"></view>
+        </view>
+      </view>
+    </navigator>
+  </template>
+
+  <!--大图模板-->
+  <template name="tpl_3">
+    <navigator url="{{pathUrl}}" class="kb-card" wx:if="{{!isOld || !stick}}" bindtap="tapEven" data-newsid="{{id}}" data-seqno="{{seq_no}}" hover-start-time="200">
+      <view class="kb-item-content video-style">
+        <text class="kb-title base-line2 {{isClicked?'kb-clicked':''}}">{{title}}</text>
+        <view class="video-img-wrap">
+          <image class="video-img" src="{{thumbnails_qqnews[0]}}"></image>
+        </view>
+        <view class="bottom-wrap">
+          <view class="bottom-content">
+            <text class="kb-red-em" wx:if="{{changeInfo.vexpr && changeInfo.vexpr.title}}" style="color:{{changeInfo.vexpr.color}};background-color:{{changeInfo.vexpr.bgcolor}}">{{changeInfo.vexpr.title}}</text>
+            <text class="kb-span kb-chlname">{{source}}</text>
+            <text class="kb-span kb-item-comment" wx:if="{{changeInfo.comments}}">{{changeInfo.comments}}评</text>
+          </view>
+          <view class="kb-del del-btn"></view>
+        </view>
+      </view>
+    </navigator>
+  </template>
+
+  <!--视频大图-->
+  <template name="tpl_43">
+    <navigator url="{{pathUrl}}" class="kb-card" wx:if="{{!isOld || !stick}}" bindtap="tapEven" data-newsid="{{id}}" data-seqno="{{seq_no}}" hover-start-time="200">
+      <view class="kb-item-content video-style ">
+        <text class="kb-title base-line2 {{isClicked?'kb-clicked':''}}">{{title}}</text>
+        <view class="video-img-wrap base-pr">
+          <image class="video-img" src="{{thumbnails_qqnews[0]}}"></image>
+          <view class="base-pa video-big-ico-wrap">
+            <image class="video-big-icon" src="http://mat1.gtimg.com/www/images/newsapp/wxapp/kuaibao/icon_video.png"></image>
+          </view>
+        </view>
+        <view class="bottom-wrap">
+          <view class="bottom-content">
+            <text class="kb-red-em" wx:if="{{changeInfo.vexpr && changeInfo.vexpr.title}}" style="color:{{changeInfo.vexpr.color}};background-color:{{changeInfo.vexpr.bgcolor}}">{{changeInfo.vexpr.title}}</text>
+            <text class="kb-span kb-chlname">{{itemsource}}</text>
+            <text class="kb-span kb-item-comment" wx:if="{{changeInfo.comments}}">{{changeInfo.comments}}评</text>
+          </view>
+          <view class="kb-del del-btn"></view>
+        </view>
+      </view>
+    </navigator>
+  </template>
+
+  <!--小图视频模板-->
+  <template name="tpl_40">
+    <navigator url="{{pathUrl}}" class="kb-card" wx:if="{{!isOld || !stick}}" bindtap="tapEven" data-newsid="{{id}}" data-seqno="{{seq_no}}" hover-start-time="200">
+      <view class="kb-item-content  base-flex-box video-small-style">
+        <view class="sim2-content-wrap base-flex1">
+          <text class="kb-title base-line2 sim2-text {{isClicked?'kb-clicked':''}}">{{title}}</text>
+          <view class="bottom-wrap">
+            <view class="bottom-content">
+              <text class="kb-red-em" wx:if="{{changeInfo.vexpr && changeInfo.vexpr.title}}" style="color:{{changeInfo.vexpr.color}};background-color:{{changeInfo.vexpr.bgcolor}}">{{changeInfo.vexpr.title}}</text>
+              <text class="kb-span kb-chlname">{{source}}</text>
+              <text class="kb-span kb-item-comment" wx:if="{{changeInfo.comments}}">{{changeInfo.comments}}评</text>
+            </view>
+            <view class="kb-del del-btn"></view>
+          </view>
+        </view>
+        <view class="base-pr kb-image-box">
+          <image class="kb-img-center" mode="aspectFill" src="{{thumbnails}}"></image>
+          <view class="video-shadow  base-pa">
+            <view class="video-play-wrap  base-pa">
+              <image class="video-paly-icon" src="http://mat1.gtimg.com/www/images/newsapp/wxapp/kuaibao/icon_video_small.png"></image>
+              <text class="video-play-time">04:30</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </navigator>
+  </template>
+</view>

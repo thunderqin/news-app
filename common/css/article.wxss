@@ -1,0 +1,227 @@
+page {
+  background: #f6f6f6;
+}
+
+.page-loading {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  background: #f6f6f6 url(http://mat1.gtimg.com/www/images/newsapp/wxapp/kuaibao/global_detail_loading.gif) center no-repeat;
+  background-size: 60rpx 20rpx;
+  z-index: 999;
+}
+
+.container {
+  background-color: #f6f6f6;
+  padding: 0rpx 0rpx 50rpx 0rpx;
+  height: auto !important;
+}
+
+/*相关新闻*/
+
+.relate-box {
+  margin: 50rpx 0;
+}
+
+.rl-top-title {
+  width: 180rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  margin: 0 auto;
+  color: #111;
+  font-size: 28rpx;
+  position: relative;
+  text-align: center;
+  font-weight: bold;
+}
+
+.rl-top-title text {
+  padding: 0 14rpx;
+  background: #f6f6f6;
+  position: relative;
+}
+
+.rl-top-title .line {
+  content: '';
+  position: absolute;
+  height: 2rpx;
+  background: #111;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.rl-top-title-left {
+  margin: 30rpx 0 10rpx 30rpx;
+  border-left: 4rpx solid #1479d7;
+  text-indent: 10rpx;
+  color: #666;
+  height: 30rpx;
+  line-height: 30rpx;
+  font-size: 30rpx;
+}
+
+.rl-line {
+  background: #e4e4e4;
+  width: 690rpx;
+  height: 1px;
+  margin: 0 auto;
+}
+
+.relate-item {
+  padding: 30rpx;
+}
+
+.relate-item .rl-title {
+  font-size: 36rpx;
+  color: #1a1a1a;
+  line-height: 50rpx;
+  display: -webkit-box;
+  overflow: hidden;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.relate-box .relate-item.selected .rl-title {
+  color: #1479d7;
+}
+
+.relate-box .relate-item .playing-tag {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  color: #fff;
+  font-size: 24rpx;
+  line-height: 24rpx;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 10rpx;
+}
+
+.relate-item .rl-src {
+  font-size: 24rpx;
+  color: #888;
+  line-height: 36rpx;
+  margin-top: 9rpx;
+}
+
+.relate-item .rl-src text {
+  margin-left: 15rpx;
+}
+
+.relate-item .rl-src .rl-comments {
+  float: right;
+}
+
+.relate-item .rl-src:after {
+  content: '';
+  clear: both;
+  display: block;
+}
+
+.relate-item.simple-pic {
+  display: flex;
+}
+
+.relate-item .rl-simple-text {
+  width: 430rpx;
+  margin-right: 34rpx;
+}
+
+.relate-item .rl-simple-wrap {
+  width: 226rpx;
+  height: 150rpx;
+  position: relative;
+  background: #ececec url(http://mat1.gtimg.com/www/images/newsapp/wxapp/news/ic_default_bg.png) center no-repeat;
+  background-size: 50rpx;
+}
+
+.relate-item .rl-simple-img {
+  height: 100%;
+  width: 100%;
+  display: block;
+}
+
+.relate-item .rl-img-mask {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.relate-item .rl-simple-wrap .video-tag {
+  position: absolute;
+  bottom: 10rpx;
+  right: 10rpx;
+  color: #fff;
+  font-size: 24rpx;
+  line-height: 24rpx;
+}
+
+.relate-item .rl-simple-wrap .video-tag:before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: -30rpx;
+  width: 0;
+  height: 0;
+  border: 2rpx solid transparent;
+  border-left-color: #fff;
+  border-width: 14rpx 22rpx;
+  border-radius: 4rpx;
+}
+
+.relate-item .rl-group-box, .relate-item .rl-big-box {
+  display: flex;
+  margin: 10rpx 0;
+  width: 100%;
+}
+
+.relate-item .rl-big-box {
+  height: 390rpx;
+}
+
+.relate-item .rl-group-box .rl-group-wrap {
+  width: 226rpx;
+  height: 150rpx;
+  display: block;
+  background: #ececec url(http://mat1.gtimg.com/www/images/newsapp/wxapp/news/ic_default_bg.png) center no-repeat;
+  background-size: 50rpx;
+}
+
+.relate-item .rl-group-box .rl-group-wrap:nth-child(2) {
+  margin: 0 8rpx;
+}
+
+.relate-item .rl-big-box {
+  background: #ececec url(http://mat1.gtimg.com/www/images/newsapp/wxapp/news/ic_default_bg.png) center no-repeat;
+  background-size: 100rpx;
+}
+
+.relate-item .rl-group-box .rl-group-img, .relate-item .rl-big-box .rl-big-img {
+  height: 100%;
+  width: 100%;
+  display: block;
+}
+
+.relate-item.hover {
+  background: #e7e7e7;
+}
+
+.list-bottom {
+  margin: 45rpx auto;
+  width: 220rpx;
+  height: 40rpx;
+  color: #c0c0c0;
+  line-height: 40rpx;
+  font-size: 30rpx;
+  text-align: center;
+}
+
+.list-bottom.loading {
+  background: url(http://mat1.gtimg.com/www/images/newsapp/wxapp/news/LOADING.gif) center left no-repeat;
+  background-size: 30rpx;
+}

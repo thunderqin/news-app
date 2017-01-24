@@ -1,0 +1,2 @@
+@import "./common/css/base.wxss";
+@import "./common/css/news_item.wxss";

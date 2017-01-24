@@ -1,0 +1,54 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/ent/index",
+    "pages/tech/index",
+    "pages/sports/index",
+    "pages/finance/index",
+    "pages/article/media/media",
+    "pages/article/normal/normal",
+    "pages/article/normal_v/normal_v",
+    "pages/article/video/video",
+    "pages/article/topic/topic",
+    "pages/article/topic_v/topic_v"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTitleText": "腾讯新闻",
+    "navigationBarTextStyle":"black",
+    "enablePullDownRefresh":true,
+    "backgroundTextStyle": "dark"
+  },
+  "tabBar": {
+    "color": "#lalala",
+    "selectedColor": "#1479d7",
+    "backgroundColor": "#fff",
+    "borderStyle": "white",
+    "position": "top",
+    "list": [{
+      "pagePath": "pages/index/index",
+      "text": "要闻"
+    }, {
+      "pagePath": "pages/ent/index",
+      "text": "娱乐"
+    },
+    {
+      "pagePath": "pages/tech/index",
+      "text": "科技"
+    },
+    {
+      "pagePath": "pages/finance/index",
+      "text": "财经"
+    },
+    {
+      "pagePath": "pages/sports/index",
+      "text": "体育"
+    }]
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "downloadFile": 10000
+  },
+  "debug": true
+}

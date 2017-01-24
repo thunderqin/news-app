@@ -1,0 +1,97 @@
+<import src="../../../common/tpl/warn.wxml"/>
+
+<template is="article-warn" data="{{showType: showType}}" />
+<view class="container" wx:if="{{showType == 1}}">
+  <view class="top-bar">
+    <image class="top-pic" wx:if="{{!!data.thumbnails.url}}" src="{{data.thumbnails.url}}" mode="aspectFill"></image>
+    <view class="top-intro" wx:if="{{data.intro}}">
+      <text class="ibtn">{{data.intro_name}}</text>{{data.intro}}
+    </view>
+  </view>
+
+  <!--列表-->
+  <view class="news-list">
+    <block wx:for="{{data.newslist}}">
+      <view class="news-sub-box{{index == 0 ? 'no-border' : ''}}">
+        <view class="news-sub-title">{{item.subtitle}}</view>
+        <view class=" news-sub-list">
+          <block wx:for="{{item.list}}" wx:for-index="j" wx:for-item="news">
+
+            <!--无图模式-->
+            <block wx:if="{{news.picShowType==1}}">
+              <navigator class="relate-item no-pic" url="{{news.url}}" hover-class="hover" hover-stay-time="100" hover-start-time="0" open-type="redirect" bindtap="itemTap" data-newsid="{{news.id}}">
+                <view class="rl-title">{{news.title}}</view>
+                <view class="rl-src">{{news.chlname}}
+                  <text class="rl-comments" wx:if="{{news.comments && news.comments != 0}}">{{news.comments}}评</text>
+                </view>
+              </navigator>
+              <view class="rl-line"></view>
+            </block>
+
+            <!--无图模式结束-->
+
+            <!--小图模式-->
+            <block wx:elif="{{news.picShowType==0}}">
+              <navigator class="relate-item simple-pic" url="{{news.url}}" hover-class="hover" hover-stay-time="100" hover-start-time="0" open-type="redirect" bindtap="itemTap" data-newsid="{{news.id}}">
+                <view class="rl-simple-text">
+                  <view class="rl-title">{{news.title}}</view>
+                  <view class="rl-src">{{news.chlname}}
+                    <text class="rl-comments" wx:if="{{news.comments && news.comments != 0}}">{{news.comments}}评</text>
+                  </view>
+                </view>
+                <view class="rl-simple-wrap">
+                  <image class="rl-simple-img" src="{{news.imgs[0]}}" mode="aspectFill"></image>
+                  <view class="rl-img-mask" wx:if="{{news.hasVideo == 1}}"></view>
+                  <view class="video-tag" wx:if="{{news.hasVideo == 1}}">{{news.duration}}</view>
+                </view>
+              </navigator>
+              <view class="rl-line"></view>
+            </block>
+
+            <!--小图模式结束-->
+
+            <!--组图模式-->
+            <block wx:elif="{{news.picShowType==2}}">
+              <navigator class="relate-item group-pic" url="{{news.url}}" hover-class="hover" hover-stay-time="100" hover-start-time="0" open-type="redirect" bindtap="itemTap" data-newsid="{{news.id}}">
+                <view class="rl-title">{{news.title}}</view>
+                <view class="rl-group-box">
+                  <view class="rl-group-wrap">
+                    <image class="rl-group-img" src="{{news.imgs[0]}}" mode="aspectFill"></image>
+                  </view>
+                  <view class="rl-group-wrap">
+                    <image class="rl-group-img" src="{{news.imgs[1]}}" mode="aspectFill"></image>
+                  </view>
+                  <view class="rl-group-wrap">
+                    <image class="rl-group-img" src="{{news.imgs[2]}}" mode="aspectFill"></image>
+                  </view>
+                </view>
+                <view class="rl-src">{{news.chlname}}
+                  <text class="rl-comments" wx:if="{{news.comments && news.comments != 0}}">{{news.comments}}评</text>
+                </view>
+              </navigator>
+              <view class="rl-line"></view>
+            </block>
+
+            <!--组图模式结束-->
+
+            <!--组图模式-->
+            <block wx:elif="{{news.picShowType==3}}">
+              <navigator class="relate-item big-pic" url="{{news.url}}" hover-class="hover" hover-stay-time="100" hover-start-time="0" open-type="redirect" bindtap="itemTap" data-newsid="{{news.id}}">
+                <view class="rl-title">{{news.title}}</view>
+                <view class="rl-big-box">
+                  <image class="rl-big-img" src="{{news.imgs[0]}}" mode="aspectFill"></image>
+                </view>
+                <view class="rl-src">{{news.chlname}}
+                  <text class="rl-comments" wx:if="{{news.comments && news.comments != 0}}">{{news.comments}}评</text>
+                </view>
+              </navigator>
+              <view class="rl-line"></view>
+            </block>
+
+            <!--组图模式结束-->
+          </block>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>
